@@ -1,5 +1,10 @@
+import { useNavigate } from "react-router-dom"
 
 function Header() {
+
+  const navigate = useNavigate();
+  
+
   return (
       <header className="sticky top-0 z-40 border-b bg-white">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -8,7 +13,7 @@ function Header() {
           </div>
 
           <nav className="hidden items-center gap-8 md:flex">
-            <a href="#" className="text-sm font-medium hover:text-gray-600">
+            <a href="#" className="text-sm font-medium hover:text-gray-600" onClick={() => navigate("/")}>
               Home
             </a>
             <a href="#" className="text-sm font-medium hover:text-gray-600">
