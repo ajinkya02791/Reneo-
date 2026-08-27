@@ -18,7 +18,7 @@ function Products( {filteredProducts, productsPerPage , page} : ProductPage ) {
 
 
   const navigate = useNavigate();
-  const viewProduct = (id) => {
+  const viewProduct = (id:number) => {
     
     navigate(`/products/${id}`);
   }
