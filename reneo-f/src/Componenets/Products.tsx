@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import type { Product } from '../types/Products'
 
 type ProductPage = {
@@ -16,6 +17,11 @@ function Products( {filteredProducts, productsPerPage , page} : ProductPage ) {
   );
 
 
+  const navigate = useNavigate();
+  const viewProduct = (id) => {
+    
+    navigate(`/products/${id}`);
+  }
 
   return (
     <>
@@ -24,6 +30,8 @@ function Products( {filteredProducts, productsPerPage , page} : ProductPage ) {
                 {paginatedProducts.map((product: Product) => (
                   <article
                     key={product.id}
+
+                    onClick={() => viewProduct(product.id)}
                     className="group overflow-hidden rounded-xl border bg-white transition hover:-translate-y-1 hover:shadow-md"
                   >
                     <div className="relative aspect-square overflow-hidden bg-gray-100">
