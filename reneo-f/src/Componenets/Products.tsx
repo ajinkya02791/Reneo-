@@ -25,6 +25,20 @@ function Products( {filteredProducts, productsPerPage , page} : ProductPage ) {
 
   return (
     <>
+
+        <div className="mb-5 flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-semibold">
+                  Explore products
+                </h2>
+
+                <p className="mt-1 text-sm text-gray-500">
+                  {filteredProducts.length} products found
+                </p>
+              </div>
+            </div>
+
+
      {paginatedProducts.length > 0 ? (
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {paginatedProducts.map((product: Product) => (
