@@ -1,6 +1,4 @@
 import { useState } from "react";
-import Header from "../Componenets/Header";
-import Footer from "../Componenets/Footer";
 
 type Product = {
   id: number;
@@ -66,8 +64,6 @@ export default function ProductDetails() {
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      {/* Header */}
-    <Header />
       {/* Breadcrumb */}
       <div className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
         <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -247,9 +243,6 @@ export default function ProductDetails() {
           </div>
         </div>
       </main>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }
