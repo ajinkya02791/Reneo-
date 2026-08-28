@@ -29,7 +29,7 @@ function Header() {
               ♡
             </button>
 
-            <button className="rounded-lg p-2 hover:bg-gray-100">
+            <button className="rounded-lg p-2 hover:bg-gray-100" onClick={() => navigate("/cart")}>
               🛒
             </button>
 
