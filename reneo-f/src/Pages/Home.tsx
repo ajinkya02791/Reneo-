@@ -1,10 +1,8 @@
 import { useMemo, useState } from "react";
-import Header from "../Componenets/Header";
 import Hero from "../Componenets/Hero";
 import Products from "../Componenets/Products";
 import { products } from "../data/products";
 import Pagination from "../Componenets/Pagination";
-import Footer from "../Componenets/Footer";
 
 
 
@@ -62,9 +60,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
-        
-        <Header />
-
         <Hero />
      
       {/* Main */}
@@ -215,9 +210,6 @@ export default function Home() {
           </aside>
         </div>
       )}
-
-      {/* Footer */}
-      <Footer />
 
 
     </div>
