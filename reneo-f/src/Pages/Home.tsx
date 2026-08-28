@@ -150,18 +150,7 @@ export default function Home() {
           {/* Products */}
           
           <section className="min-w-0 flex-1">
-            <div className="mb-5 flex items-center justify-between">
-              <div>
-                <h2 className="text-xl font-semibold">
-                  Explore products
-                </h2>
-
-                <p className="mt-1 text-sm text-gray-500">
-                  {filteredProducts.length} products found
-                </p>
-              </div>
-            </div>
-
+            
            <Products filteredProducts={filteredProducts} productsPerPage={productsPerPage} page={page} /> 
 
             {/* Pagination */}
