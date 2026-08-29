@@ -4,7 +4,7 @@ import Home from './Pages/Home'
 import ProductDetails from './Pages/ProductDetails'
 import CartPage from './Pages/Cart'
 import MainLayout from './Componenets/MainLayout'
-import Products from './Pages/Products'
+import ProductsPage from './Pages/Products'
 import { ProductsProvider } from './contextAPI/products'
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
     <Route path='/'  element={<Home />}/>
     <Route path='/products/:productID' element={<ProductDetails />} />
     <Route path='/cart' element={<CartPage />} />
-    <Route path='/products' element={<Products />} />
+    <Route path='/products' element={<ProductsPage />} />
     </Route>
     </Route>
     </Routes> 
