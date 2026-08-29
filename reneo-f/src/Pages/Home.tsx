@@ -11,7 +11,7 @@ const categories = ["All", "Fashion", "Home", "Beauty", "Accessories"];
 export default function Home() {
 
 
-  const { search, setSearch, page, setPage, productsPerPage, products } = useProducts();
+  const { search, page, setPage, productsPerPage, products } = useProducts();
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("newest");
   const [showFilters, setShowFilters] = useState(false);
@@ -41,12 +41,6 @@ export default function Home() {
   }, [search, category, sort]);
 
 
-
-  const handleSearch = (value: string) => {
-    setSearch(value);
-    setPage(1);
-  };
-
   const handleCategory = (value: string) => {
     setCategory(value);
     setPage(1);
@@ -65,7 +59,7 @@ export default function Home() {
       {/* Main */}
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Search */}
-        <Search handleSearch={handleSearch} search={search} />
+        <Search />
 
         {/* Mobile controls */}
         <div className="mt-6 flex gap-3 md:hidden">
