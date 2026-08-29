@@ -16,8 +16,8 @@ function Header() {
             <a href="#" className="text-sm font-medium hover:text-gray-600" onClick={() => navigate("/")}>
               Home
             </a>
-            <a href="#" className="text-sm font-medium hover:text-gray-600">
-              Shop
+            <a href="#" className="text-sm font-medium hover:text-gray-600" onClick={() => navigate("/products/")}>
+              Products
             </a>
             <a href="#" className="text-sm font-medium hover:text-gray-600">
               Categories
