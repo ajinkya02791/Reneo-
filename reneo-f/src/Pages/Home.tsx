@@ -1,21 +1,21 @@
 import { useMemo, useState } from "react";
 import Hero from "../Componenets/Hero";
 import Products from "../Componenets/Products";
-import { products } from "../data/products";
 import Pagination from "../Componenets/Pagination";
 import Search from "../Componenets/Search";
+import { useProducts } from "../contextAPI/products";
 
 
 const categories = ["All", "Fashion", "Home", "Beauty", "Accessories"];
 
 export default function Home() {
-  const [search, setSearch] = useState("");
+
+
+  const { search, setSearch, page, setPage, productsPerPage, products } = useProducts();
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("newest");
   const [showFilters, setShowFilters] = useState(false);
-  const [page, setPage] = useState(1);
 
-  const productsPerPage = 4;
 
   const filteredProducts = useMemo(() => {
     let result = products.filter((product) => {
