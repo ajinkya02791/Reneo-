@@ -9,8 +9,9 @@ const categories = ["All", "Fashion", "Home", "Beauty", "Accessories"];
 
 function ProductsPage() {
 
-    const { products, search, page, setPage, productsPerPage } = useProducts();
+    const { products, search, page, setPage } = useProducts();
 
+    const PRODUCT_PER_PAGE = 12;
 
       const [category, setCategory] = useState("All");
       const [sort, setSort] = useState("newest");
@@ -131,11 +132,11 @@ function ProductsPage() {
           
           <section className="min-w-0 flex-1">
             
-           <Products filteredProducts={filteredProducts} productsPerPage={productsPerPage} page={page} /> 
+           <Products filteredProducts={filteredProducts} productsPerPage={PRODUCT_PER_PAGE} page={page} /> 
 
             {/* Pagination */}
 
-            <Pagination filteredProducts={filteredProducts} productsPerPage={productsPerPage} setPage={setPage} page={page} /> 
+            <Pagination filteredProducts={filteredProducts} productsPerPage={PRODUCT_PER_PAGE} setPage={setPage} page={page} /> 
 
            </section>
         </div>
