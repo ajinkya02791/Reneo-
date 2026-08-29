@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 function Header() {
 
@@ -13,15 +13,16 @@ function Header() {
           </div>
 
           <nav className="hidden items-center gap-8 md:flex">
-            <a href="#" className="text-sm font-medium hover:text-gray-600" onClick={() => navigate("/")}>
+            
+            <Link className="text-sm font-medium hover:text-gray-600" to={"/"}>
               Home
-            </a>
-            <a href="#" className="text-sm font-medium hover:text-gray-600" onClick={() => navigate("/products/")}>
+            </Link>
+            <Link className="text-sm font-medium hover:text-gray-600" to={"/products/"}>
               Products
-            </a>
-            <a href="#" className="text-sm font-medium hover:text-gray-600">
-              Categories
-            </a>
+            </Link>
+            <Link className="text-sm font-medium hover:text-gray-600" to={"/orders/"}>
+              Orders
+            </Link>
           </nav>
 
           <div className="flex items-center gap-3">
