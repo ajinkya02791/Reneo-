@@ -11,7 +11,8 @@ type ProductsContextType = {
     setPage: React.Dispatch<React.SetStateAction<number>>;
     productsPerPage: number;    
     products: Product[],
-    setProducts: React.Dispatch<React.SetStateAction<Product[]>>
+    setProducts: React.Dispatch<React.SetStateAction<Product[]>>,
+    handleSearch: (value: string) => void
 };
 
 const ProductsContext = createContext<ProductsContextType | undefined>(
@@ -28,10 +29,17 @@ export const ProductsProvider = () => {
 
   const productsPerPage = 4;
 
+
+    const handleSearch = (value: string) => {
+        setSearch(value);
+        setPage(1);
+    };
+
+
   return (
     <ProductsContext.Provider
       value={{
-        search, setSearch, page, setPage, productsPerPage, products, setProducts
+        search, setSearch, page, setPage, productsPerPage, products, setProducts, handleSearch
     }}
     >
         <Outlet />
