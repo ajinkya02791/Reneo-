@@ -1,10 +1,9 @@
+import { useProducts } from "../contextAPI/products";
 
-type Search = {
-    handleSearch : (value: string) => void;
-    search : string;
-}
+function Search() {
 
-function Search({ handleSearch, search} : Search) {
+    const { handleSearch, search } = useProducts();
+
   return (
     <div className="relative mx-auto max-w-2xl">
           <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
