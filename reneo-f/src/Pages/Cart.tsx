@@ -1,34 +1,9 @@
 
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useProducts } from "../contextAPI/products";
 
-type CartItem = {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-  availableStock: number;
-};
 
-const initialCart: CartItem[] = [
-  {
-    id: "1",
-    name: "Handmade African Basket",
-    price: 1200,
-    image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7",
-    quantity: 2,
-    availableStock: 5,
-  },
-  {
-    id: "2",
-    name: "Traditional Woven Bag",
-    price: 850,
-    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62",
-    quantity: 1,
-    availableStock: 3,
-  },
-];
 
 const formatPrice = (price: number) =>
   new Intl.NumberFormat("en-IN", {
@@ -40,7 +15,7 @@ const formatPrice = (price: number) =>
 export default function CartPage() {
   const navigate = useNavigate();
 
-  const [cart, setCart] = useState<CartItem[]>(initialCart);
+  const { cart, setCart } = useProducts();
 
   const updateQuantity = (id: string, change: number) => {
     setCart((currentCart) =>
