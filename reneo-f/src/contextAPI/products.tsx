@@ -3,6 +3,8 @@ import React, { createContext, useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import type { Product } from "../types/Products";
 import { demoProducts } from "../data/products";
+import type { CartItem } from "../types/cart";
+import { initialCart } from "../data/cart";
 
 type ProductsContextType = {
     search: string;
@@ -12,7 +14,9 @@ type ProductsContextType = {
     productsPerPage: number;    
     products: Product[],
     setProducts: React.Dispatch<React.SetStateAction<Product[]>>,
-    handleSearch: (value: string) => void
+    handleSearch: (value: string) => void;
+    cart: CartItem[];
+    setCart: React.Dispatch<React.SetStateAction<CartItem[]>>
 };
 
 const ProductsContext = createContext<ProductsContextType | undefined>(
@@ -26,6 +30,8 @@ export const ProductsProvider = () => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [products, setProducts] = useState(demoProducts)
+  const [cart, setCart] = useState<CartItem[]>(initialCart);
+  
 
   const productsPerPage = 4;
 
@@ -39,7 +45,7 @@ export const ProductsProvider = () => {
   return (
     <ProductsContext.Provider
       value={{
-        search, setSearch, page, setPage, productsPerPage, products, setProducts, handleSearch
+        search, setSearch, page, setPage, productsPerPage, products, setProducts, handleSearch, cart, setCart
     }}
     >
         <Outlet />
