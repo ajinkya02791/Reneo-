@@ -34,7 +34,8 @@ function Header() {
               🛒
             </button>
 
-            <button className="hidden rounded-lg border px-4 py-2 text-sm font-medium hover:bg-gray-50 sm:block">
+            <button className="hidden rounded-lg border px-4 py-2 text-sm font-medium hover:bg-gray-50 sm:block"
+              onClick={() => navigate("/login")}>
               Login
             </button>
           </div>
