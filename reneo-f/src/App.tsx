@@ -6,6 +6,9 @@ import CartPage from './Pages/Cart'
 import MainLayout from './Componenets/MainLayout'
 import ProductsPage from './Pages/Products'
 import { ProductsProvider } from './contextAPI/products'
+import Login from './Pages/Login'
+import Signup from './Pages/Signup'
+import ForgotPassword from './Pages/ForgotPassword'
 
 function App() {
 
@@ -18,6 +21,9 @@ function App() {
     <Route path='/products/:productID' element={<ProductDetails />} />
     <Route path='/cart' element={<CartPage />} />
     <Route path='/products' element={<ProductsPage />} />
+    <Route path='/login' element={<Login />} />
+    <Route path='/signup' element={<Signup />} />
+    <Route path='/forgot-password' element={<ForgotPassword />} />
     </Route>
     </Route>
     </Routes> 
