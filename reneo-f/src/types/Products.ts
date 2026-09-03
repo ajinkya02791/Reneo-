@@ -1,9 +1,15 @@
 export type Product = {
   id: number;
   name: string;
-  category: string;
   price: number;
   stock: number;
-  image: string;
-  seller: string;
+  description: string;
+  images: string[];
+  category: string;
+  shop: {
+    name: string;
+    city: string;
+    district: string;
+  };
+  isLive: boolean;
 };
