@@ -1,25 +1,12 @@
 import { useState } from "react";
-
-type Product = {
-  id: number;
-  name: string;
-  price: number;
-  stock: number;
-  description: string;
-  images: string[];
-  shop: {
-    name: string;
-    city: string;
-    district: string;
-  };
-  isLive: boolean;
-};
+import type { Product } from "../types/Products";
 
 const product: Product = {
   id: 1,
   name: "Handmade Leather Bag",
   price: 45,
   stock: 8,
+  category: "bags",
   description:
     "A handcrafted leather bag made by skilled local artisans. Designed for everyday use with a spacious interior and durable construction.",
   images: [
