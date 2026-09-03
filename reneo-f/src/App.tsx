@@ -9,6 +9,7 @@ import { ProductsProvider } from './contextAPI/products'
 import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import ForgotPassword from './Pages/ForgotPassword'
+import OrderPage from './Pages/Orders'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
     <Route path='/products/:productID' element={<ProductDetails />} />
     <Route path='/cart' element={<CartPage />} />
     <Route path='/products' element={<ProductsPage />} />
+    <Route path='/orders' element={<OrderPage />} />
     <Route path='/login' element={<Login />} />
     <Route path='/signup' element={<Signup />} />
     <Route path='/forgot-password' element={<ForgotPassword />} />
