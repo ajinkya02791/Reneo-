@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Product } from "../types/Products";
 import { useProducts } from "../contextAPI/products";
 
@@ -6,7 +6,7 @@ const product: Product = {
   id: "1",
   name: "Handmade Leather Bag",
   price: 45,
-  stock: 8,
+  stock: 5,
   category: "bags",
   description:
     "A handcrafted leather bag made by skilled local artisans. Designed for everyday use with a spacious interior and durable construction.",
@@ -27,7 +27,7 @@ export default function ProductDetails() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  const { setCart } = useProducts();
+  const { setCart, showToast } = useProducts();
 
   const increaseQuantity = () => {
     if (quantity < product.stock) {
@@ -41,43 +41,59 @@ export default function ProductDetails() {
     }
   };
 
-// type CartItem = { product_id: string; quantity: number; }; 
 const addToCart = (product: Product) => {
+    // ❌ Don't add if out of stock
+    if (product.stock <= 0) {
+        showToast("Product is out of stock", "error");
+        return;
+    }
+
     setCart((currentItems) => {
         const existingItem = currentItems.find(
             (item) => item.id === product.id
         );
+
+        // Product already in cart
         if (existingItem) {
+            if (existingItem.quantity >= existingItem.availableStock) {
+                showToast("Maximum available stock reached", "info");
+                return currentItems;
+            }
+
+            showToast("Added to cart");
+
             return currentItems.map((item) =>
                 item.id === product.id
                     ? {
                           ...item,
-                          quantity: Math.min(
-                              item.quantity + 1,
-                              item.availableStock
-                          ),
+                          quantity: item.quantity + 1,
                       }
                     : item
             );
         }
 
+        // New product
+        showToast("Added to cart");
+
         return [
             ...currentItems,
             {
-                id: crypto.randomUUID(),
+                id: product.id,
                 name: product.name,
                 price: product.price,
                 image: product.images[0],
-                availableStock: product.stock,
                 quantity: 1,
+                availableStock: product.stock,
             },
         ];
     });
 };
 
+
   const handleJoinStream = () => {
     console.log("Joining stream:", product.shop.name);
   };
+
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
