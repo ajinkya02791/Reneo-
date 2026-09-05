@@ -5,6 +5,7 @@ import type { Product } from "../types/Products";
 import { demoProducts } from "../data/products";
 import type { CartItem } from "../types/cart";
 import { initialCart } from "../data/cart";
+import type { ToastProps } from "../types/toast";
 
 type ProductsContextType = {
     search: string;
@@ -17,6 +18,8 @@ type ProductsContextType = {
     handleSearch: (value: string) => void;
     cart: CartItem[];
     setCart: React.Dispatch<React.SetStateAction<CartItem[]>>
+    toast: ToastProps | null,
+    setToast: React.Dispatch<React.SetStateAction<ToastProps | null>>
 };
 
 const ProductsContext = createContext<ProductsContextType | undefined>(
@@ -31,7 +34,7 @@ export const ProductsProvider = () => {
   const [page, setPage] = useState(1);
   const [products, setProducts] = useState(demoProducts)
   const [cart, setCart] = useState<CartItem[]>(initialCart);
-  
+  const [toast, setToast] = useState<ToastProps | null>(null);
 
   const productsPerPage = 4;
 
@@ -45,7 +48,7 @@ export const ProductsProvider = () => {
   return (
     <ProductsContext.Provider
       value={{
-        search, setSearch, page, setPage, productsPerPage, products, setProducts, handleSearch, cart, setCart
+        search, setSearch, page, setPage, productsPerPage, products, setProducts, handleSearch, cart, setCart, toast, setToast
     }}
     >
         <Outlet />
