@@ -1,8 +1,9 @@
 import { useState } from "react";
 import type { Product } from "../types/Products";
+import { useProducts } from "../contextAPI/products";
 
 const product: Product = {
-  id: 1,
+  id: "1",
   name: "Handmade Leather Bag",
   price: 45,
   stock: 8,
@@ -26,6 +27,8 @@ export default function ProductDetails() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
+  const { setCart } = useProducts();
+
   const increaseQuantity = () => {
     if (quantity < product.stock) {
       setQuantity((current) => current + 1);
@@ -38,12 +41,39 @@ export default function ProductDetails() {
     }
   };
 
-  const handleAddToCart = () => {
-    console.log("Added to cart:", {
-      productId: product.id,
-      quantity,
+// type CartItem = { product_id: string; quantity: number; }; 
+const addToCart = (product: Product) => {
+    setCart((currentItems) => {
+        const existingItem = currentItems.find(
+            (item) => item.id === product.id
+        );
+        if (existingItem) {
+            return currentItems.map((item) =>
+                item.id === product.id
+                    ? {
+                          ...item,
+                          quantity: Math.min(
+                              item.quantity + 1,
+                              item.availableStock
+                          ),
+                      }
+                    : item
+            );
+        }
+
+        return [
+            ...currentItems,
+            {
+                id: crypto.randomUUID(),
+                name: product.name,
+                price: product.price,
+                image: product.images[0],
+                availableStock: product.stock,
+                quantity: 1,
+            },
+        ];
     });
-  };
+};
 
   const handleJoinStream = () => {
     console.log("Joining stream:", product.shop.name);
@@ -194,7 +224,7 @@ export default function ProductDetails() {
               <div className="mt-6">
                 <p className="mb-2 text-sm font-medium">Quantity</p>
 
-                <div className="flex gap-3">
+                <div className="flex gap-5">
                   <div className="flex items-center rounded-lg border">
                     <button
                       onClick={decreaseQuantity}
@@ -218,11 +248,20 @@ export default function ProductDetails() {
                   </div>
 
                   <button
-                    onClick={handleAddToCart}
-                    className="flex-1 rounded-lg bg-gray-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-gray-700"
+                    onClick={() => addToCart(product)}
+                    disabled={product.stock <= 0}
+                     className="
+                      rounded-lg bg-black px-4 py-2 text-white
+                      transition-all duration-100
+                      hover:bg-gray-800
+                      active:scale-95
+                      active:bg-gray-900
+                      disabled:cursor-not-allowed
+                      disabled:opacity-50
+                      disabled:active:scale-100
+                    "
                   >
-                    Add to Cart · $
-                    {(product.price * quantity).toFixed(2)}
+                   {product.stock <= 0 ? "Out of Stock" : "Add to Cart"}
                   </button>
                 </div>
               </div>
