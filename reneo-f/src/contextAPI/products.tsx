@@ -1,11 +1,14 @@
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import type { Product } from "../types/Products";
 import { demoProducts } from "../data/products";
 import type { CartItem } from "../types/cart";
 import { initialCart } from "../data/cart";
-import type { ToastProps } from "../types/toast";
+import type { ToastProps, ToastType } from "../types/toast";
+
+
+
 
 type ProductsContextType = {
     search: string;
@@ -19,7 +22,8 @@ type ProductsContextType = {
     cart: CartItem[];
     setCart: React.Dispatch<React.SetStateAction<CartItem[]>>
     toast: ToastProps | null,
-    setToast: React.Dispatch<React.SetStateAction<ToastProps | null>>
+    setToast: React.Dispatch<React.SetStateAction<ToastProps | null>>,
+    showToast: (message : string, type?: ToastType ) => void 
 };
 
 const ProductsContext = createContext<ProductsContextType | undefined>(
@@ -44,11 +48,32 @@ export const ProductsProvider = () => {
         setPage(1);
     };
 
+    
+  const showToast = (
+    message: string,
+    type: "success" | "error" | "info" = "success"
+  ) => {
+    setToast({ message, type });
+  };
+
+
+
+  
+  useEffect(() => {
+    if (!toast) return;
+
+    const timer = setTimeout(() => {
+        setToast(null);
+    }, 2500);
+
+    return () => clearTimeout(timer);
+}, [toast]);
 
   return (
     <ProductsContext.Provider
       value={{
-        search, setSearch, page, setPage, productsPerPage, products, setProducts, handleSearch, cart, setCart, toast, setToast
+        search, setSearch, page, setPage, productsPerPage, products,
+         setProducts, handleSearch, cart, setCart, toast, setToast, showToast
     }}
     >
         <Outlet />
