@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import type { Order } from "../types/orders";
-import { orders } from "../data/orders";
+import { useProducts } from "../contextAPI/products";
 
 
 const getStatusClass = (status: Order["status"]) => {
@@ -21,6 +21,7 @@ const getStatusClass = (status: Order["status"]) => {
 
 const OrderPage = () => {
     const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
+    const { orders } = useProducts();
 
     return (
         <main className="min-h-screen bg-gray-50 px-4 py-6">
