@@ -18,7 +18,7 @@ function Products( {filteredProducts, productsPerPage , page} : ProductPage ) {
 
 
   const navigate = useNavigate();
-  const viewProduct = (id:number) => {
+  const viewProduct = (id:string) => {
     
     navigate(`/products/${id}`);
   }
@@ -50,7 +50,7 @@ function Products( {filteredProducts, productsPerPage , page} : ProductPage ) {
                   >
                     <div className="relative aspect-square overflow-hidden bg-gray-100">
                       <img
-                        src={product.image}
+                        src={product.images[0]}
                         alt={product.name}
                         className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                       />
@@ -70,7 +70,7 @@ function Products( {filteredProducts, productsPerPage , page} : ProductPage ) {
                       </h3>
 
                       <p className="mt-2 text-xs text-gray-500">
-                        by {product.seller}
+                        by {product.shop.name}
                       </p>
 
                       <div className="mt-3 flex items-center justify-between">
