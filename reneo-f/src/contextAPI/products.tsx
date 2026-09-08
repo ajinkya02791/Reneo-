@@ -5,6 +5,8 @@ import type { Product } from "../types/Products";
 import { demoProducts } from "../data/products";
 import type { CartItem } from "../types/cart";
 import { initialCart } from "../data/cart";
+import { demoOrders } from "../data/orders";
+import type { Order } from "../types/orders";
 import type { ToastProps, ToastType } from "../types/toast";
 
 
@@ -24,6 +26,8 @@ type ProductsContextType = {
     toast: ToastProps | null,
     setToast: React.Dispatch<React.SetStateAction<ToastProps | null>>,
     showToast: (message : string, type?: ToastType ) => void 
+    orders: Order[],
+    setOrders: React.Dispatch<React.SetStateAction<Order[]>>
 };
 
 const ProductsContext = createContext<ProductsContextType | undefined>(
@@ -38,6 +42,7 @@ export const ProductsProvider = () => {
   const [page, setPage] = useState(1);
   const [products, setProducts] = useState(demoProducts)
   const [cart, setCart] = useState<CartItem[]>(initialCart);
+  const [orders, setOrders] = useState(demoOrders)
   const [toast, setToast] = useState<ToastProps | null>(null);
 
   const productsPerPage = 4;
@@ -73,7 +78,7 @@ export const ProductsProvider = () => {
     <ProductsContext.Provider
       value={{
         search, setSearch, page, setPage, productsPerPage, products,
-         setProducts, handleSearch, cart, setCart, toast, setToast, showToast
+         setProducts, handleSearch, cart, setCart, toast, setToast, showToast, orders, setOrders
     }}
     >
         <Outlet />
