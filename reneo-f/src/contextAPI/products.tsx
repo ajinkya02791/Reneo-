@@ -27,7 +27,10 @@ type ProductsContextType = {
     setToast: React.Dispatch<React.SetStateAction<ToastProps | null>>,
     showToast: (message : string, type?: ToastType ) => void 
     orders: Order[],
-    setOrders: React.Dispatch<React.SetStateAction<Order[]>>
+    setOrders: React.Dispatch<React.SetStateAction<Order[]>>,
+    like: Product[],
+    setLike: React.Dispatch<React.SetStateAction<Product[]>>,
+    saveLiked: (product: Product) => void
 };
 
 const ProductsContext = createContext<ProductsContextType | undefined>(
@@ -43,6 +46,7 @@ export const ProductsProvider = () => {
   const [products, setProducts] = useState(demoProducts)
   const [cart, setCart] = useState<CartItem[]>(initialCart);
   const [orders, setOrders] = useState(demoOrders)
+  const [like, setLike] = useState<Product[]>([])
   const [toast, setToast] = useState<ToastProps | null>(null);
 
   const productsPerPage = 4;
@@ -61,6 +65,23 @@ export const ProductsProvider = () => {
     setToast({ message, type });
   };
 
+  const saveLiked = (product: Product) => {
+
+    const existed = like.find( a => a.id == product.id)
+
+    if(existed) {
+      const restArray = like.filter( a => a.id !== product.id);
+      setLike(restArray);
+    }
+
+    setLike((prev) => {
+      return {
+        ...prev,
+        product
+      }
+    })
+  }
+
 
 
   
@@ -78,7 +99,8 @@ export const ProductsProvider = () => {
     <ProductsContext.Provider
       value={{
         search, setSearch, page, setPage, productsPerPage, products,
-         setProducts, handleSearch, cart, setCart, toast, setToast, showToast, orders, setOrders
+         setProducts, handleSearch, cart, setCart, toast, setToast, showToast, orders, setOrders,
+         like, setLike, saveLiked
     }}
     >
         <Outlet />
