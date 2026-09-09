@@ -1,29 +1,19 @@
 
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useNavigate } from "react-router-dom";
+
+import { supabase } from "../lib/supabase";
 
 const signupSchema = z
   .object({
-    name: z
-      .string()
-      .min(1, "Name is required")
-      .min(2, "Name must be at least 2 characters"),
-
-    email: z
-      .string()
-      .min(1, "Email is required")
-        .email("Enter a valid email address"),
-
-    password: z
-      .string()
-      .min(1, "Password is required")
-      .min(6, "Password must be at least 6 characters"),
-
-    confirmPassword: z
-      .string()
-      .min(1, "Please confirm your password"),
+    name: z.string().trim().min(2, "Name must be at least 2 characters"),
+    email: z.string().email("Enter a valid email address"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string().min(1, "Please confirm your password"),
+    role: z.enum(["customer", "seller"]),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -33,39 +23,67 @@ const signupSchema = z
 type SignupFormData = z.infer<typeof signupSchema>;
 
 const Signup = () => {
+  const navigate = useNavigate();
+
+  const [serverError, setServerError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
+      role: "customer",
     },
   });
 
   const onSubmit = async (data: SignupFormData) => {
-    console.log(data);
+    setServerError("");
+    setIsSubmitting(true);
+
+    const { error } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+      options: {
+        data: {
+          name: data.name,
+          role: data.role,
+        },
+      },
+    });
+
+    setIsSubmitting(false);
+
+    if (error) {
+      setServerError(error.message);
+      return;
+    }
+
+    navigate("/verify-email");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-sm bg-white rounded-xl shadow-md p-5">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-6">
+      <div className="w-full max-w-sm rounded-xl bg-white p-5 shadow-md">
+        {/* Header */}
+        <div className="mb-4 text-center">
+          <h1 className="text-xl font-semibold text-gray-900">
+            Create Account
+          </h1>
 
-        <h1 className="text-xl font-bold text-center mb-5">
-          Create Account
-        </h1>
+          <p className="mt-1 text-xs text-gray-500">
+            Create your account to get started
+          </p>
+        </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-
           {/* Name */}
           <div>
             <label
               htmlFor="name"
-              className="block text-sm font-medium mb-1"
+              className="mb-1 block text-xs font-medium text-gray-700"
             >
               Name
             </label>
@@ -75,11 +93,11 @@ const Signup = () => {
               type="text"
               placeholder="Enter your name"
               {...register("name")}
-              className="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
+              className="h-9 w-full rounded-md border border-gray-300 px-3 text-sm outline-none focus:border-gray-900"
             />
 
             {errors.name && (
-              <p className="text-xs text-red-500 mt-1">
+              <p className="mt-0.5 text-[11px] text-red-500">
                 {errors.name.message}
               </p>
             )}
@@ -89,7 +107,7 @@ const Signup = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium mb-1"
+              className="mb-1 block text-xs font-medium text-gray-700"
             >
               Email
             </label>
@@ -99,11 +117,11 @@ const Signup = () => {
               type="email"
               placeholder="Enter your email"
               {...register("email")}
-              className="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
+              className="h-9 w-full rounded-md border border-gray-300 px-3 text-sm outline-none focus:border-gray-900"
             />
 
             {errors.email && (
-              <p className="text-xs text-red-500 mt-1">
+              <p className="mt-0.5 text-[11px] text-red-500">
                 {errors.email.message}
               </p>
             )}
@@ -113,7 +131,7 @@ const Signup = () => {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium mb-1"
+              className="mb-1 block text-xs font-medium text-gray-700"
             >
               Password
             </label>
@@ -121,13 +139,13 @@ const Signup = () => {
             <input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Create a password"
               {...register("password")}
-              className="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
+              className="h-9 w-full rounded-md border border-gray-300 px-3 text-sm outline-none focus:border-gray-900"
             />
 
             {errors.password && (
-              <p className="text-xs text-red-500 mt-1">
+              <p className="mt-0.5 text-[11px] text-red-500">
                 {errors.password.message}
               </p>
             )}
@@ -137,7 +155,7 @@ const Signup = () => {
           <div>
             <label
               htmlFor="confirmPassword"
-              className="block text-sm font-medium mb-1"
+              className="mb-1 block text-xs font-medium text-gray-700"
             >
               Confirm Password
             </label>
@@ -147,31 +165,74 @@ const Signup = () => {
               type="password"
               placeholder="Confirm your password"
               {...register("confirmPassword")}
-              className="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
+              className="h-9 w-full rounded-md border border-gray-300 px-3 text-sm outline-none focus:border-gray-900"
             />
 
             {errors.confirmPassword && (
-              <p className="text-xs text-red-500 mt-1">
+              <p className="mt-0.5 text-[11px] text-red-500">
                 {errors.confirmPassword.message}
               </p>
             )}
           </div>
 
+          {/* Role */}
+          <div>
+            <p className="mb-1.5 text-xs font-medium text-gray-700">
+              Account Type
+            </p>
+
+            <div className="grid grid-cols-2 gap-2">
+              <label className="cursor-pointer">
+                <input
+                  type="radio"
+                  value="customer"
+                  {...register("role")}
+                  className="peer sr-only"
+                />
+
+                <div className="rounded-md border border-gray-300 px-2 py-2 text-center text-xs transition peer-checked:border-gray-900 peer-checked:bg-gray-900 peer-checked:text-white">
+                  Customer
+                </div>
+              </label>
+
+              <label className="cursor-pointer">
+                <input
+                  type="radio"
+                  value="seller"
+                  {...register("role")}
+                  className="peer sr-only"
+                />
+
+                <div className="rounded-md border border-gray-300 px-2 py-2 text-center text-xs transition peer-checked:border-gray-900 peer-checked:bg-gray-900 peer-checked:text-white">
+                  Seller
+                </div>
+              </label>
+            </div>
+          </div>
+
+          {/* Error */}
+          {serverError && (
+            <p className="rounded-md bg-red-50 px-3 py-2 text-xs text-red-600">
+              {serverError}
+            </p>
+          )}
+
+          {/* Submit */}
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-blue-600 text-white py-2 text-sm rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="h-9 w-full rounded-md bg-gray-900 text-sm font-medium text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isSubmitting ? "Creating account..." : "Sign Up"}
+            {isSubmitting ? "Creating..." : "Create Account"}
           </button>
         </form>
 
         {/* Login */}
-        <p className="text-center text-sm text-gray-600 mt-4">
-          Already registered?{" "}
+        <p className="mt-4 text-center text-xs text-gray-500">
+          Already have an account?{" "}
           <Link
             to="/login"
-            className="text-blue-600 font-medium hover:underline"
+            className="font-medium text-gray-900 hover:underline"
           >
             Login
           </Link>
