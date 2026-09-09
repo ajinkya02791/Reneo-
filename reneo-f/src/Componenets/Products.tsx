@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import type { Product } from '../types/Products'
+import { useProducts } from '../contextAPI/products';
 
 type ProductPage = {
     filteredProducts: Product[];
@@ -10,6 +11,8 @@ type ProductPage = {
 
 function Products( {filteredProducts, productsPerPage , page} : ProductPage ) {
 
+
+  const { saveLiked, like  } = useProducts();
 
   const paginatedProducts = filteredProducts.slice(
     (page - 1) * productsPerPage,
@@ -22,6 +25,9 @@ function Products( {filteredProducts, productsPerPage , page} : ProductPage ) {
     
     navigate(`/products/${id}`);
   }
+
+  const likedIds = Object.fromEntries(like.map(a => [a.id, true]))
+  
 
   return (
     <>
@@ -50,13 +56,15 @@ function Products( {filteredProducts, productsPerPage , page} : ProductPage ) {
                   >
                     <div className="relative aspect-square overflow-hidden bg-gray-100">
                       <img
-                        src={product.images[0]}
+                        src={product?.images[0]}
                         alt={product.name}
                         className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                       />
 
-                      <button className="absolute right-3 top-3 rounded-full bg-white/90 p-2 shadow-sm backdrop-blur hover:bg-white">
-                        ♡
+                      <button className="absolute right-3 top-3 rounded-full bg-white/90 p-2 shadow-sm backdrop-blur hover:bg-white"
+                        onClick={(e) => { e.stopPropagation(); saveLiked(product)} }>
+                        { likedIds[product.id] ?  "❤" : "🤍" }
+                         
                       </button>
                     </div>
 
