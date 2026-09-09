@@ -67,19 +67,20 @@ export const ProductsProvider = () => {
 
   const saveLiked = (product: Product) => {
 
-    const existed = like.find( a => a.id == product.id)
+    const existed = like.find( a => a.id === product.id)
 
     if(existed) {
       const restArray = like.filter( a => a.id !== product.id);
       setLike(restArray);
-    }
-
-    setLike((prev) => {
-      return {
+      console.log("existed",restArray)
+    }else {
+      setLike((prev) => {
+      return [
         ...prev,
         product
-      }
+      ]
     })
+    }
   }
 
 
