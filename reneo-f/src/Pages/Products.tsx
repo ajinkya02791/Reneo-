@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useProducts } from "../contextAPI/products";
 import Search from "../Componenets/Search";
 import Pagination from "../Componenets/Pagination";
-import Products from "../Componenets/Products";
+import Products from "../Componenets/ProductsSection";
 
 const categories = ["All", "Fashion", "Home", "Beauty", "Accessories"];
 

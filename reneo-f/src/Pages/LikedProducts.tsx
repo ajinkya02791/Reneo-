@@ -1,5 +1,5 @@
 import { useProducts } from "../contextAPI/products";
-import Product from "../Componenets/Products";
+import Product from "../Componenets/ProductCard";
 import Pagination from "../Componenets/Pagination";
 
 const LikePage = () => {

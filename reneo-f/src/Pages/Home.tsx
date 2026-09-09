@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import Hero from "../Componenets/Hero";
-import Products from "../Componenets/Products";
 import Pagination from "../Componenets/Pagination";
 import Search from "../Componenets/Search";
 import { useProducts } from "../contextAPI/products";
+import Products from "../Componenets/ProductsSection";
 
 
 const categories = ["All", "Fashion", "Home", "Beauty", "Accessories"];
