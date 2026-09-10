@@ -228,7 +228,7 @@ const Signup = () => {
         </form>
 
         {/* Login */}
-        <p className="mt-4 text-center text-xs text-gray-500">
+        <p className="mt-4 text-center text-sm text-gray-500">
           Already have an account?{" "}
           <Link
             to="/login"
