@@ -11,6 +11,7 @@ import Signup from './Pages/Signup'
 import ForgotPassword from './Pages/ForgotPassword'
 import OrderPage from './Pages/Orders'
 import LikePage from './Pages/LikedProducts'
+import VerifyEmail from './Pages/EmailVerify'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
     <Route path='/products' element={<ProductsPage />} />
     <Route path='/orders' element={<OrderPage />} />
     <Route path='/liked-products' element={<LikePage />} />
+    <Route path='/verify-email' element={<VerifyEmail />} />
     <Route path='/login' element={<Login />} />
     <Route path='/signup' element={<Signup />} />
     <Route path='/forgot-password' element={<ForgotPassword />} />
