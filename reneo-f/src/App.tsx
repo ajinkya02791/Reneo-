@@ -12,6 +12,7 @@ import ForgotPassword from './Pages/ForgotPassword'
 import OrderPage from './Pages/Orders'
 import LikePage from './Pages/LikedProducts'
 import VerifyEmail from './Pages/EmailVerify'
+import CustomerProtectedRoute from './Componenets/CustomerProtectedRoute'
 
 function App() {
 
@@ -22,11 +23,13 @@ function App() {
     <Route element={<MainLayout />} >
     <Route path='/'  element={<Home />}/>
     <Route path='/products/:productID' element={<ProductDetails />} />
-    <Route path='/cart' element={<CartPage />} />
     <Route path='/products' element={<ProductsPage />} />
+    <Route element={<CustomerProtectedRoute />} >
+    <Route path='/cart' element={<CartPage />} />
     <Route path='/orders' element={<OrderPage />} />
     <Route path='/liked-products' element={<LikePage />} />
     <Route path='/verify-email' element={<VerifyEmail />} />
+    </Route>
     <Route path='/login' element={<Login />} />
     <Route path='/signup' element={<Signup />} />
     <Route path='/forgot-password' element={<ForgotPassword />} />
