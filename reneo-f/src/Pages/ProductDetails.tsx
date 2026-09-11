@@ -1,34 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { Product } from "../types/Products";
 import { useProducts } from "../contextAPI/products";
+import { useLocation } from "react-router-dom";
 
-const product: Product = {
-  id: "1",
-  name: "Handmade Leather Bag",
-  price: 45,
-  stock: 5,
-  category: "bags",
-  description:
-    "A handcrafted leather bag made by skilled local artisans. Designed for everyday use with a spacious interior and durable construction.",
-  images: [
-    "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1000&q=80",
-  ],
-  shop: {
-    name: "Amina Crafts",
-    city: "Accra",
-    district: "Greater Accra",
-  },
-  isLive: true,
-};
 
 export default function ProductDetails() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const { setCart, showToast, products } = useProducts();
 
-  const { setCart, showToast } = useProducts();
+  const location = useLocation();
+  const productId = location.state;
 
+  const product = products.find( p => p.id === productId);
+  
+  if(!product) {
+    return <h1>No product found!</h1>
+  }
+  
+  
   const increaseQuantity = () => {
     if (quantity < product.stock) {
       setQuantity((current) => current + 1);
@@ -84,14 +74,14 @@ const addToCart = (product: Product) => {
                 image: product.images[0],
                 quantity: 1,
                 availableStock: product.stock,
-            },
-        ];
-    });
-};
-
-
-  const handleJoinStream = () => {
-    console.log("Joining stream:", product.shop.name);
+              },
+            ];
+          });
+        };
+        
+        
+        const handleJoinStream = () => {
+          console.log("Joining stream:", product.shop.name);
   };
 
 
