@@ -23,7 +23,11 @@ function Products( {filteredProducts, productsPerPage , page} : ProductPage ) {
   const navigate = useNavigate();
   const viewProduct = (id:string) => {
     
-    navigate(`/products/${id}`);
+    navigate(`/products/${id}`, 
+      {
+        state: `${id}`
+      }
+    );
   }
 
   const likedIds = Object.fromEntries(like.map(a => [a.id, true]))
