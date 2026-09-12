@@ -77,8 +77,8 @@ const Login = () => {
     // Route according to role
     if (profile.role === "seller") {
       navigate("/seller");
-    } else {
-      navigate("/customer");
+    } else if ( profile.role === "customer" ){
+      navigate("/");
     }
   };
 
