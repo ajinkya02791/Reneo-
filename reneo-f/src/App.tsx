@@ -13,6 +13,7 @@ import OrderPage from './Pages/Orders'
 import LikePage from './Pages/LikedProducts'
 import VerifyEmail from './Pages/EmailVerify'
 import CustomerProtectedRoute from './Componenets/CustomerProtectedRoute'
+import SellerOnboarding from './SellerPage/OnBoardingPage'
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
     <Route path='/liked-products' element={<LikePage />} />
     <Route path='/verify-email' element={<VerifyEmail />} />
     </Route>
+    <Route path='/seller' element={<SellerOnboarding />} />
     <Route path='/login' element={<Login />} />
     <Route path='/signup' element={<Signup />} />
     <Route path='/forgot-password' element={<ForgotPassword />} />
