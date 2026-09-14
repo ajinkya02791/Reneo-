@@ -14,6 +14,9 @@ import LikePage from './Pages/LikedProducts'
 import VerifyEmail from './Pages/EmailVerify'
 import CustomerProtectedRoute from './Componenets/CustomerProtectedRoute'
 import SellerOnboarding from './SellerPage/OnBoardingPage'
+import { SellerProvider } from './contextAPI/sellerContext'
+import SellerProtectedRoute from './Componenets/SellerProtectedRoute'
+import SellerHome from './SellerPage/Dashboard'
 
 function App() {
 
@@ -31,10 +34,17 @@ function App() {
     <Route path='/liked-products' element={<LikePage />} />
     <Route path='/verify-email' element={<VerifyEmail />} />
     </Route>
+    
     <Route path='/seller' element={<SellerOnboarding />} />
     <Route path='/login' element={<Login />} />
     <Route path='/signup' element={<Signup />} />
     <Route path='/forgot-password' element={<ForgotPassword />} />
+    </Route>
+    </Route>
+
+    <Route element={<SellerProvider />} >
+    <Route path='/dashboard' element={<SellerHome />} /> 
+    <Route element={<SellerProtectedRoute />} >
     </Route>
     </Route>
     </Routes> 
