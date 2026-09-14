@@ -1,9 +1,11 @@
 import { Link, useNavigate } from "react-router-dom"
+import { useAuth } from "../contextAPI/auth";
+import UserMenu from "./UserSubMenu";
 
 function Header() {
 
   const navigate = useNavigate();
-  
+  const { user } = useAuth();
 
   return (
       <header className="sticky top-0 z-40 border-b bg-white">
@@ -34,10 +36,14 @@ function Header() {
               🛒
             </button>
 
+            {user ? 
+              <UserMenu /> :
+              
             <button className="hidden rounded-lg border px-4 py-2 text-sm font-medium hover:bg-gray-50 sm:block"
               onClick={() => navigate("/login")}>
               Login
             </button>
+            }
           </div>
         </div>
       </header>
