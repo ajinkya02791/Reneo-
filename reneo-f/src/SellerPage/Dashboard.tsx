@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-
 import { useSeller } from "../contextAPI/sellerContext";
+import ProductImage from "../Componenets/FallbackImage";
 
 const SellerHome = () => {
   const {
@@ -140,7 +140,7 @@ const SellerHome = () => {
                   key={product.id}
                   className="flex items-center gap-3"
                 >
-                  <img
+                  <ProductImage
                     src={product.image}
                     alt={product.name}
                     className="h-12 w-12 rounded-lg object-cover"
@@ -214,7 +214,7 @@ const SellerHome = () => {
 
                     <td className="py-4">
                       <div className="flex items-center gap-3">
-                        <img
+                        <ProductImage
                           src={order.productImage}
                           alt={order.productName}
                           className="h-10 w-10 rounded-md object-cover"
