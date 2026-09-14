@@ -17,6 +17,7 @@ import SellerOnboarding from './SellerPage/OnBoardingPage'
 import { SellerProvider } from './contextAPI/sellerContext'
 import SellerProtectedRoute from './Componenets/SellerProtectedRoute'
 import SellerHome from './SellerPage/Dashboard'
+import SellerLayout from './SellerPage/MainTemplate'
 
 function App() {
 
@@ -43,7 +44,10 @@ function App() {
     </Route>
 
     <Route element={<SellerProvider />} >
-    <Route path='/dashboard' element={<SellerHome />} /> 
+    <Route element={<SellerLayout />} >
+    
+    <Route path='/seller/dashboard' element={<SellerHome />} /> 
+    </Route>
     <Route element={<SellerProtectedRoute />} >
     </Route>
     </Route>
