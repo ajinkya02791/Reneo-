@@ -1,0 +1,88 @@
+import type { ProductAtSellerSide } from "../contextAPI/sellerContext";
+
+export const demoProducts: ProductAtSellerSide[] = [
+  {
+    id: "p001",
+    name: "Handmade Woven Basket",
+    price: 1200,
+    image: "https://picsum.photos/id/1011/500/500",
+    stock: 12,
+  },
+  {
+    id: "p002",
+    name: "African Print Tote Bag",
+    price: 850,
+    image: "https://picsum.photos/id/1025/500/500",
+    stock: 4,
+  },
+  {
+    id: "p003",
+    name: "Beaded Statement Necklace",
+    price: 650,
+    image: "https://picsum.photos/id/1062/500/500",
+    stock: 0,
+  },
+  {
+    id: "p004",
+    name: "Handcrafted Leather Wallet",
+    price: 950,
+    image: "https://picsum.photos/id/1074/500/500",
+    stock: 18,
+  },
+  {
+    id: "p005",
+    name: "Traditional Wooden Bowl",
+    price: 1100,
+    image: "https://picsum.photos/id/1080/500/500",
+    stock: 3,
+  },
+  {
+    id: "p006",
+    name: "Natural Shea Butter",
+    price: 500,
+    image: "https://picsum.photos/id/102/500/500",
+    stock: 25,
+  },
+  {
+    id: "p007",
+    name: "Handmade Beaded Bracelet",
+    price: 350,
+    image: "https://picsum.photos/id/106/500/500",
+    stock: 7,
+  },
+  {
+    id: "p008",
+    name: "Cotton Patterned Shirt",
+    price: 1400,
+    image: "https://picsum.photos/id/100/500/500",
+    stock: 2,
+  },
+  {
+    id: "p009",
+    name: "Hand-Painted Ceramic Mug",
+    price: 450,
+    image: "https://picsum.photos/id/30/500/500",
+    stock: 14,
+  },
+  {
+    id: "p010",
+    name: "African Black Soap",
+    price: 300,
+    image: "https://picsum.photos/id/25/500/500",
+    stock: 0,
+  },
+  {
+    id: "p011",
+    name: "Wooden Serving Tray",
+    price: 1350,
+    image: "https://picsum.photos/id/42/500/500",
+    stock: 9,
+  },
+  {
+    id: "p012",
+    name: "Handwoven Scarf",
+    price: 750,
+    image: "https://picsum.photos/id/64/500/500",
+    stock: 5,
+  },
+];
