@@ -17,3 +17,20 @@ export type Order = {
 };
 
 
+export type OrderStatus = "Pending" | "Processing" | "Shipped" | "Delivered";
+
+export type SellerOrder = {
+  id: string;
+  customerName: string;
+  customerPhone: string;
+  address: string;
+  city: string;
+  state: string;
+  postcode: string;
+  paymentMethod: "UPI" | "Card" | "COD";
+  paymentStatus: "Paid" | "Pending";
+  status: OrderStatus;
+  items: number;
+  total: number;
+  date: string;
+};
