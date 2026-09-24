@@ -1,48 +1,20 @@
 
 import { useState } from "react";
 import { ArrowLeft, MapPin, Plus, Check } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { demoAddresses } from "../data/address";
 
-type Address = {
-  id: string;
-  label: string;
-  name: string;
-  phone: string;
-  addressLine: string;
-  city: string;
-  state: string;
-  postcode: string;
-};
-
-const demoAddresses: Address[] = [
-  {
-    id: "address-1",
-    label: "Home",
-    name: "Rahul Sharma",
-    phone: "+91 98765 43210",
-    addressLine: "12 MG Road, Near City Center",
-    city: "Nashik",
-    state: "Maharashtra",
-    postcode: "422001",
-  },
-  {
-    id: "address-2",
-    label: "Work",
-    name: "Rahul Sharma",
-    phone: "+91 98765 43210",
-    addressLine: "45 College Road",
-    city: "Nashik",
-    state: "Maharashtra",
-    postcode: "422005",
-  },
-];
 
 export default function CheckoutAddress() {
   const [selectedAddress, setSelectedAddress] = useState("address-1");
+
+  const navigate = useNavigate();
 
   const handleContinue = () => {
     const address = demoAddresses.find(
       (address) => address.id === selectedAddress
     );
+
 
     console.log("Selected address:", address);
   };
@@ -144,6 +116,7 @@ export default function CheckoutAddress() {
         <button
           type="button"
           className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-gray-300 bg-white px-5 py-4 text-sm font-medium text-gray-700 transition hover:border-gray-500 hover:text-gray-900"
+          onClick={() => navigate("/add-new-address")}
         >
           <Plus size={18} />
           Add New Address
