@@ -1,10 +1,12 @@
 export type Address = {
   id: string;
-  label: string;
-  name: string;
-  phone: string;
-  addressLine: string;
+  label: "Home" | "Work" | "Other";
+  fullName: string;
+  mobile: string;
+  flatHouseNo: string;
+  streetArea: string;
   city: string;
+  district: string;
   state: string;
-  postcode: string;
+  pincode: string;
 };
