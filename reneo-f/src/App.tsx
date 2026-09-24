@@ -21,6 +21,7 @@ import SellerLayout from './SellerPage/MainTemplate'
 import SellerProducts from './SellerPage/Product'
 import SellerOrders from './SellerPage/OrderPage'
 import CheckoutAddress from './Pages/AddressPage'
+import AddNewAddress from './Pages/NewAddressPage'
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
     <Route path='/liked-products' element={<LikePage />} />
     <Route path='/verify-email' element={<VerifyEmail />} />
     <Route path='/address' element={<CheckoutAddress />} />
+    <Route path='/add-new-address' element={<AddNewAddress />} />
     </Route>
     
     <Route path='/seller' element={<SellerOnboarding />} />
