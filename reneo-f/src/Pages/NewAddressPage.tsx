@@ -3,8 +3,13 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
+import { useProducts } from "../contextAPI/products";
+import { useNavigate } from "react-router-dom";
 
 const addressSchema = z.object({
+label: z.enum(["Home", "Work", "Other"], {
+  message: "Please select an address type",
+}),
   fullName: z
     .string()
     .min(2, "Full name must be at least 2 characters")
@@ -49,11 +54,13 @@ type AddressFormData = z.infer<typeof addressSchema>;
 export default function AddNewAddress() {
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<AddressFormData>({
     resolver: zodResolver(addressSchema),
     defaultValues: {
+        label: "Other",
       fullName: "",
       mobile: "",
       flatHouseNo: "",
@@ -65,13 +72,24 @@ export default function AddNewAddress() {
     },
   });
 
+  const { setAddresses } = useProducts();
+  const navigate = useNavigate();
+
   const onSubmit = async (data: AddressFormData) => {
     console.log("Address:", data);
-
-    // Later:
     // 1. Save address to Supabase
     // 2. Select the newly created address
     // 3. Navigate to payment
+    setAddresses( prev => ([
+        ...prev,
+        {
+            id: "1",
+            ...data
+        }
+    ]))
+
+    navigate("/address");
+
   };
 
   return (
@@ -81,6 +99,7 @@ export default function AddNewAddress() {
         <button
           type="button"
           className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-gray-600 transition hover:text-gray-900"
+            onClick={() => navigate("/address")}
         >
           <ArrowLeft size={18} />
           Back to Addresses
@@ -103,6 +122,35 @@ export default function AddNewAddress() {
           className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm sm:p-6"
         >
           <div className="space-y-5">
+
+        {/* Address Type */}
+        <FormField
+        label="Address Type"
+        required
+        error={errors.label?.message}
+        >
+        <div className="grid grid-cols-3 gap-3">
+            {(["Home", "Work", "Other"] as const).map((type) => (
+            <label
+                key={type}
+                className={`flex cursor-pointer items-center justify-center rounded-lg border px-4 py-2.5 text-sm font-medium transition ${
+                watch("label") === type
+                    ? "border-gray-900 bg-gray-900 text-white"
+                    : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
+                }`}
+            >
+                <input
+                type="radio"
+                value={type}
+                {...register("label")}
+                className="sr-only"
+                />
+                {type}
+            </label>
+            ))}
+        </div>
+        </FormField>
+
             {/* Full Name */}
             <FormField
               label="Full Name"
