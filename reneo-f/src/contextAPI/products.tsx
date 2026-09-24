@@ -8,6 +8,8 @@ import { initialCart } from "../data/cart";
 import { demoOrders } from "../data/orders";
 import type { Order } from "../types/orders";
 import type { ToastProps, ToastType } from "../types/toast";
+import type { Address } from "../types/address";
+import { demoAddresses } from "../data/address";
 
 
 
@@ -30,7 +32,9 @@ type ProductsContextType = {
     setOrders: React.Dispatch<React.SetStateAction<Order[]>>,
     like: Product[],
     setLike: React.Dispatch<React.SetStateAction<Product[]>>,
-    saveLiked: (product: Product) => void
+    saveLiked: (product: Product) => void,
+    addresses: Address[],
+    setAddresses: React.Dispatch<React.SetStateAction<Address[]>>
 };
 
 const ProductsContext = createContext<ProductsContextType | undefined>(
@@ -48,6 +52,7 @@ export const ProductsProvider = () => {
   const [orders, setOrders] = useState(demoOrders)
   const [like, setLike] = useState<Product[]>([])
   const [toast, setToast] = useState<ToastProps | null>(null);
+  const [addresses, setAddresses] = useState<Address[]>(demoAddresses);
 
   const productsPerPage = 4;
 
@@ -101,7 +106,7 @@ export const ProductsProvider = () => {
       value={{
         search, setSearch, page, setPage, productsPerPage, products,
          setProducts, handleSearch, cart, setCart, toast, setToast, showToast, orders, setOrders,
-         like, setLike, saveLiked
+         like, setLike, saveLiked, addresses,setAddresses
     }}
     >
         <Outlet />
