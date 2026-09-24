@@ -19,6 +19,8 @@ import SellerProtectedRoute from './Componenets/SellerProtectedRoute'
 import SellerHome from './SellerPage/Dashboard'
 import SellerLayout from './SellerPage/MainTemplate'
 import SellerProducts from './SellerPage/Product'
+import SellerOrders from './SellerPage/OrderPage'
+import CheckoutAddress from './Pages/AddressPage'
 
 function App() {
 
@@ -35,6 +37,7 @@ function App() {
     <Route path='/orders' element={<OrderPage />} />
     <Route path='/liked-products' element={<LikePage />} />
     <Route path='/verify-email' element={<VerifyEmail />} />
+    <Route path='/address' element={<CheckoutAddress />} />
     </Route>
     
     <Route path='/seller' element={<SellerOnboarding />} />
@@ -49,6 +52,7 @@ function App() {
     
     <Route path='/seller/dashboard' element={<SellerHome />} /> 
     <Route path='/seller/products' element={<SellerProducts />} />
+    <Route path='/seller/orders' element={<SellerOrders />} />
     </Route>
     <Route element={<SellerProtectedRoute />} >
     </Route>
