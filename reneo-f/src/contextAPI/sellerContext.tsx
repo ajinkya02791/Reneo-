@@ -6,8 +6,9 @@ import {
 import api from "../lib/axiosInstance";
 import { Outlet } from "react-router-dom";
 import { sellerDashboardMock } from "../data/dashboard";
+import { demoProducts } from "../data/sellerProducts";
 
-export type Product = {
+export type ProductAtSellerSide = {
   id: string;
   name: string;
   price: number;
@@ -68,12 +69,12 @@ export type SellerDashboard = {
   stats: DashboardStats;
   salesOverview: SalesOverview[];
   recentOrders: Order[];
-  lowStockProducts: Product[];
+  lowStockProducts: ProductAtSellerSide[];
 };
 
 type SellerContextType = {
   // Products
-  products: Product[];
+  products: ProductAtSellerSide[];
   productPagination: Pagination | null;
   productsLoading: boolean;
   productError: string | null;
@@ -100,7 +101,7 @@ const SellerContext = createContext<SellerContextType | undefined>(
 );
 
 export const SellerProvider = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductAtSellerSide[]>([]);
   const [productPagination, setProductPagination] =
     useState<Pagination | null>(null);
   const [productsLoading, setProductsLoading] = useState(false);
@@ -140,6 +141,13 @@ export const SellerProvider = () => {
   }
 };
 
+// const demoPagination = {
+//   page: 1,
+//   limit: 8,
+//   total: 12,
+//   totalPages: 2,
+// };
+
   const fetchProducts = async (query: ProductQuery) => {
     setProductsLoading(true);
     setProductError(null);
@@ -150,9 +158,13 @@ export const SellerProvider = () => {
         params: query,
       });
 
-      setProducts(response.data.products);
-      setProductPagination(response.data.pagination);
+      // setProducts(response.data.products);
+      // setProductPagination(response.data.pagination);
+        setProducts(demoProducts);
+        console.log("fetch")
+        // setProductPagination(demoPagination)
     } catch (error) {
+
       console.error("Failed to fetch products:", error);
 
       setProductError("Unable to load products.");
