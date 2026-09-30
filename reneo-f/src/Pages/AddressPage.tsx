@@ -19,6 +19,9 @@ export default function CheckoutAddress() {
 
 
     console.log("Selected address:", address);
+
+    navigate("/payment");
+
   };
 
   return (
