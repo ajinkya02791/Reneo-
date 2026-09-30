@@ -22,6 +22,7 @@ import SellerProducts from './SellerPage/Product'
 import SellerOrders from './SellerPage/OrderPage'
 import CheckoutAddress from './Pages/AddressPage'
 import AddNewAddress from './Pages/NewAddressPage'
+import CheckoutPayment from './Pages/PaymentPage'
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
     <Route path='/verify-email' element={<VerifyEmail />} />
     <Route path='/address' element={<CheckoutAddress />} />
     <Route path='/add-new-address' element={<AddNewAddress />} />
+    <Route path='/payment' element={<CheckoutPayment />} />
     </Route>
     
     <Route path='/seller' element={<SellerOnboarding />} />
