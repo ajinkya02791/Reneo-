@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Package,
@@ -10,7 +10,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Store,
+  LogOut
 } from "lucide-react";
+import { useAuth } from "../contextAPI/auth";
 
 const menuItems = [
   {
@@ -33,6 +35,17 @@ const menuItems = [
 export default function SellerLayout() {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+   try {
+     signOut()
+     navigate("/login");
+   } catch (error) {
+    console.log(error);
+   }
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -159,6 +172,34 @@ export default function SellerLayout() {
           })}
 
         </nav>
+
+        <div className="mt-auto border-t border-gray-200 pt-4">
+        {/* Seller */}
+        <div className="flex items-center gap-3 px-3 py-2">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 font-semibold text-gray-700">
+            A
+          </div>
+
+          <div className="min-w-0">
+            <p className="truncate text-sm font-semibold text-gray-900">
+              Amina Crafts
+            </p>
+            <p className="text-xs text-gray-500">
+              Seller
+            </p>
+          </div>
+        </div>
+
+        {/* Logout */}
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="mt-2 flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900"
+        >
+          <LogOut size={18} />
+          <span>Logout</span>
+        </button>
+      </div>
 
       </aside>
 
