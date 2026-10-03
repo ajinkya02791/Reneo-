@@ -11,6 +11,7 @@ import {
   Package,
   Pencil,
   Eye,
+  Radio
 } from "lucide-react";
 
 import { useSeller, type ProductAtSellerSide } from "../contextAPI/sellerContext";
@@ -671,7 +672,15 @@ function ProductCard({
             Edit
           </Link>
 
+
         </div>
+          <Link
+            to={`/seller/products/${product.id}/goLive`}
+            className="flex flex-1 mt-3 items-center justify-center gap-1.5 rounded-lg bg-gray-900 px-2 py-2 text-xs font-medium text-white hover:bg-gray-800"
+          >
+            <Radio size={15} />
+            Go Live
+          </Link>
 
       </div>
 
